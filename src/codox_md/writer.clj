@@ -4,8 +4,8 @@
    [codox.writer.html :only []]
    [codox-md.markdown :only [md]]
    [net.cgrand.enlive-html
-    :only [any-node clone-for content do-> html-content html-resource set-attr
-           template transformation]])
+    :only [at clone-for content do-> html-content html-resource set-attr
+           template transform transformation]])
   (:require
    [clojure.java.io :as io]
    [codox.writer.html :as html-writer]))
@@ -46,7 +46,11 @@
                [:.doc] (html-content (md (:doc v)))
                [:.usage] (clone-for
                           [arg-list (:arglists v)]
-                          (html-content arg-list)))))
+                          (html-content arg-list))
+               [:.added] (when-let [version (:added v)]
+                           #(at % [:.version] (html-content version)))
+               [:.deprecated] (when-let [version (:deprecated v)]
+                                #(at % [:.version] (html-content version))))))
 
 (def index-page
   (template
