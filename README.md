@@ -6,14 +6,15 @@ Provide templated markdown output for [codox][codox].
 
 To enable use of codox-md with codox, install it as a plugin.
 
-    lein plugin install codox-md
+```bash
+lein plugin install codox-md 0.1.0
+```
 
 In your `project.clj` configure codox to use the plugin.
 
-    :codox {:writer codox-md.writer/write-docs}
-
-NOTE: the plugin configuration to enable this is not released in codox yet. See my
-[`feature/enable-writer-plugins` branch][codox-hd].
+```clojure
+:codox {:writer'codox-md.writer/write-docs}
+```
 
 ### Templates
 
@@ -68,4 +69,3 @@ Copyright (C) 2012 Hugo Duncan
 Distributed under the Eclipse Public License.
 
 [codox]: https://github.com/weavejester/codox
-[codox-hd]: https://github.com/hugoduncan/codox
