@@ -13,7 +13,7 @@ lein plugin install codox-md 0.1.0
 In your `project.clj` configure codox to use the plugin.
 
 ```clojure
-:codox {:writer'codox-md.writer/write-docs}
+:codox {:writer codox-md.writer/write-docs}
 ```
 
 ### Templates
