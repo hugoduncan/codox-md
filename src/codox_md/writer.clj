@@ -95,6 +95,8 @@
     (#'html-writer/copy-resource
      "codox/css/default.css" "css/default.css")
     (#'html-writer/copy-resource
+     "codox/css/codox-md.css" "css/codox-md.css")
+    (#'html-writer/copy-resource
      "codox/js/jquery.min.js" "js/jquery.min.js")
     (#'html-writer/copy-resource
      "codox/js/page_effects.js" "js/page_effects.js")

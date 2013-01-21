@@ -103,6 +103,12 @@ var-type
 : Content replaced with either "macro", "fn", or "var", depending on the type of
   var.
 
+### CSS
+
+To allow you to provide CSS customisation without having to replace the whole of
+`codox`' built in CSS, `codox-md` adds a css stylesheet to the templates, which
+is taken from the classpath using a `codox/css/codox-md.css` path.
+
 ## License
 
 Copyright (C) 2012, 2013 Hugo Duncan
