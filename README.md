@@ -81,6 +81,10 @@ ns-var-links ns-var-link
 public var-name
 : Content replaced with the name of each var.
 
+public var-type
+: The var-type class will be augmented with either a "macro", "fn", or "var"
+  class, depending on the type of var.
+
 public usage
 : Content replaced with the arglists for each var.
 
@@ -95,6 +99,9 @@ public doc
 
 In addition, the following css ids are used:
 
+var-type
+: Content replaced with either "macro", "fn", or "var", depending on the type of
+  var.
 
 ## License
 

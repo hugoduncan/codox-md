@@ -45,6 +45,14 @@
                                   (:src-dir-uri project)
                                   v
                                   (:src-linenum-anchor-prefix project)))
+               [:.var-type] (add-class (cond
+                                        (:macro v) "macro"
+                                        (:arglists v) "fn"
+                                        :else "var"))
+               [:#var-type] (html-content (cond
+                                           (:macro v) "macro"
+                                           (:arglists v) "fn"
+                                           :else "var"))
                [:.doc] (html-content (md (:doc v)))
                [:.usage] (clone-for
                           [arg-list (:arglists v)]
