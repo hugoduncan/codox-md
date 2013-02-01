@@ -7,7 +7,7 @@ Provide templated markdown output for [codox][codox].
 To enable use of codox-md with codox, install it as a plugin.
 
 ```bash
-lein plugin install codox-md 0.1.0
+lein plugin install codox-md 0.2.0
 ```
 
 In your `project.clj` configure codox to use the plugin.
