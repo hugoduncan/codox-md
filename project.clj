@@ -1,4 +1,4 @@
-(defproject codox-md "0.1.1-SNAPSHOT"
+(defproject codox-md "0.2.0"
   :description "Templated codox output with markdown processing."
   :dependencies [[org.markdownj/markdownj "0.3.0-1.0.2b4"]
                  [enlive "1.0.0"]]
