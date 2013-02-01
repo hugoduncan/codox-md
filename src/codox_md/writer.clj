@@ -1,11 +1,10 @@
 (ns codox-md.writer
   "Output of codox documentation using markdown."
   (:use
-   [codox.writer.html :only []]
    [codox-md.markdown :only [md]]
    [net.cgrand.enlive-html
-    :only [at clone-for content do-> html-content html-resource set-attr
-           template transform transformation]])
+    :only [add-class at clone-for content do-> html-content html-resource
+           set-attr template transform transformation]])
   (:require
    [clojure.java.io :as io]
    [codox.writer.html :as html-writer]))
@@ -15,34 +14,45 @@
 
 (defn ns-link [namespace]
   (transformation
-   [:a] (do->
-         (set-attr :href (#'html-writer/ns-filename namespace))
-         (html-content (:name namespace)))))
+   [:.ns-name] (html-content (:name namespace))
+   [:.ns-link] (set-attr :href (#'html-writer/ns-filename namespace))))
 
 (defn ns-var-link [namespace v]
   (transformation
-   [:a] (do->
-         (set-attr :href (#'html-writer/var-uri namespace v))
-         (html-content (:name v)))))
+   [:.ns-var-name] (html-content (:name v))
+   [:.ns-var-link] (set-attr :href (#'html-writer/var-uri namespace v))))
 
 (def namespace-page
   (template
    "codox/ns_template.html" [project namespace]
    [:title] (html-content (#'html-writer/namespace-title namespace))
    [:.project-title] (content (#'html-writer/project-title project))
-   [:.ns-links :.ns-link] (clone-for
+   [:.ns-links :.ns-list] (clone-for
                            [namespace (:namespaces project)]
                            (ns-link namespace))
-   [:.ns-var-links :.ns-var-link] (clone-for
+   [:.ns-var-links :.ns-var-list] (clone-for
                                    [v (:publics namespace)]
                                    (ns-var-link namespace v))
    [:.namespace-title] (html-content (#'html-writer/namespace-title namespace))
    [:.namespace-docs :.doc] (html-content (md (:doc namespace)))
    [:.public] (clone-for
                [v (:publics namespace)]
-               [:h3] (do->
-                      (html-content (:name v))
-                      (set-attr :id (#'html-writer/var-id v)))
+               [:.var-name] (do->
+                             (html-content (:name v))
+                             (set-attr :id (#'html-writer/var-id v)))
+               [:.source] (set-attr
+                           :href (#'html-writer/var-source-uri
+                                  (:src-dir-uri project)
+                                  v
+                                  (:src-linenum-anchor-prefix project)))
+               [:.var-type] (add-class (cond
+                                        (:macro v) "macro"
+                                        (:arglists v) "fn"
+                                        :else "var"))
+               [:#var-type] (html-content (cond
+                                           (:macro v) "macro"
+                                           (:arglists v) "fn"
+                                           :else "var"))
                [:.doc] (html-content (md (:doc v)))
                [:.usage] (clone-for
                           [arg-list (:arglists v)]
@@ -65,7 +75,7 @@
                   [namespace (:namespaces project)]
                   [:.ns-link] (ns-link namespace)
                   [:.doc] (html-content (md (:doc namespace)))
-                  [:.ns-var-link] (clone-for
+                  [:.ns-var-list] (clone-for
                                    [v (:publics namespace)]
                                    (ns-var-link namespace v)))))
 
@@ -84,6 +94,8 @@
     (#'html-writer/mkdirs "css" "js")
     (#'html-writer/copy-resource
      "codox/css/default.css" "css/default.css")
+    (#'html-writer/copy-resource
+     "codox/css/codox-md.css" "css/codox-md.css")
     (#'html-writer/copy-resource
      "codox/js/jquery.min.js" "js/jquery.min.js")
     (#'html-writer/copy-resource
