@@ -21,7 +21,6 @@ lein plugin install codox-md 0.2.0
 and configure it in the project.clj file.
 
 ```clojure
-:dependencies [[codox-md "0.2.0"]]
 :codox {:writer codox-md.writer/write-docs}
 ```
 
