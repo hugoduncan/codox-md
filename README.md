@@ -4,6 +4,8 @@ Provide templated markdown output for [codox][codox].
 
 ## Usage
 
+### Leiningen 2.x
+
 If you are using Leiningen 2.x, add the codox-md dependency and
 configuration to your `project.clj` file.
 
@@ -11,6 +13,8 @@ configuration to your `project.clj` file.
 :dependencies [[codox-md "0.2.0"]]
 :codox {:writer codox-md.writer/write-docs}
 ```
+
+### Leiningen 1.x
 
 For Leiningen 1.x users, install the plugin via the `lein plugin` command
 from your shell (lein plugin is deprecated in Leiningen 2.x)
