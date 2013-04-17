@@ -4,13 +4,25 @@ Provide templated markdown output for [codox][codox].
 
 ## Usage
 
-To enable use of codox-md with codox, install it as a plugin.
+### Leiningen 2.x
 
+If you are using Leiningen 2.x, add the codox-md dependency and
+configuration to your `project.clj` file.
+
+```clojure
+:dependencies [[codox-md "0.2.0"]]
+:codox {:writer codox-md.writer/write-docs}
+```
+
+### Leiningen 1.x
+
+For Leiningen 1.x users, install the plugin via the `lein plugin` command
+from your shell (lein plugin is deprecated in Leiningen 2.x)
 ```bash
 lein plugin install codox-md 0.2.0
 ```
 
-In your `project.clj` configure codox to use the plugin.
+and configure it in the project.clj file.
 
 ```clojure
 :codox {:writer codox-md.writer/write-docs}
